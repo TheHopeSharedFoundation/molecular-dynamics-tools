@@ -19,7 +19,7 @@
 ############################################################################
 
 obj_count = 0
-obj_list =  cmd.get_object_list(selection='*3dBinned')
+obj_list =  cmd.get_object_list(selection='*3dBinned*')
 for obj in obj_list:
 	obj_count += 1
 	cmd.create("%s_alpha_0.9to1.0"%obj_count,selection="(%s and resname ALP and b >0.9) and (%s and resname ALP and (b < 1.0 or b=1.0))"%(obj,obj))
