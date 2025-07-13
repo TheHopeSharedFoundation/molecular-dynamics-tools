@@ -59,7 +59,7 @@ for bin_index in range(0,number_references):
 	filtered_df = df[df['structure_bin_index'] == -1]
 
 	random_index = random.randint(0, len(filtered_df))
-	print(f"Random row: {random_index} bin_index: {bin_index}\n")
+	print(f"Random row: {random_index}, random frame: {filtered_df['frame'].iloc[random_index])}, bin_index: {bin_index}\n")
 	rmsds = md.rmsd(traj, traj, int(filtered_df['frame'].iloc[random_index]), atom_indices=protein_indices) 
 	for index in range(0,len(filtered_df)):
 		#similarity = jaccard_similarity(filtered_df['fingerprint'].iloc[random_index],filtered_df['fingerprint'].iloc[index])
