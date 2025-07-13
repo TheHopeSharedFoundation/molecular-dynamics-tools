@@ -35,7 +35,7 @@ df = pd.DataFrame(np.zeros((int(traj.n_frames), 3)), columns=['structure_bin_ind
 df['structure_bin_index'] = -1
 df['rmsd'] = -1
 for frame_index in range(0,int(traj.n_frames)):
-	df['frame'].iloc[frame_index] = frame_index
+	df['frame'].iloc[frame_index] = int(frame_index)
 
 print(df.head())
 
