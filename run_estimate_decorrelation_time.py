@@ -31,9 +31,11 @@ traj = md.load("/Users/benjaminsamudio/3w32-benzene_NPT_production_2024sep13utc0
 
 print(f"The number of frames is: {traj.n_frames}")
 
-df = pd.DataFrame(np.zeros((int(traj.n_frames), 2)), columns=['structure_bin_index', 'rmsd'])
+df = pd.DataFrame(np.zeros((int(traj.n_frames), 3)), columns=['structure_bin_index', 'rmsd', 'frame']) #<----- NOTE: Added a "frame" column for proper indexing @ 2025JUL13PTZ1250 by Ben 
 df['structure_bin_index'] = -1
 df['rmsd'] = -1
+for frame_index in range(0,int(traj.n_frames)):
+	df['frame'].iloc[frame_index] = frame_index
 
 print(df.head())
 
@@ -58,10 +60,10 @@ for bin_index in range(0,number_references):
 
 	random_index = random.randint(0, len(filtered_df))
 	print(f"Random row: {random_index} bin_index: {bin_index}\n")
-	rmsds = md.rmsd(traj, traj, random_index, atom_indices=protein_indices) 
+	rmsds = md.rmsd(traj, traj, int(filtered_df['frame'].iloc[random_index]), atom_indices=protein_indices) 
 	for index in range(0,len(filtered_df)):
 		#similarity = jaccard_similarity(filtered_df['fingerprint'].iloc[random_index],filtered_df['fingerprint'].iloc[index])
-		similarity = rmsds[index]
+		similarity = rmsds[int(filtered_df['frame'].iloc[index])]
 		filtered_df['rmsd'].iloc[index] = similarity
 		filtered_df['structure_bin_index'].iloc[index] = bin_index
 
